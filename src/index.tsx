@@ -1,8 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// Import Bootstrap and its default variables
-import 'bootstrap/dist/css/bootstrap.css';
-
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
