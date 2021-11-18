@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import './App.css';
-import { useLocalStorage } from './hooks/useLocalStorage';
+// import { useLocalStorage } from './hooks/useLocalStorage';
 import { useToggle } from './hooks/useToggle';
 import Board from './components/Board';
 import { SquareType } from './types';
 import { generateSquares } from './utils/generateSquares';
 
 const App: React.FC = () => {
-  const [userName, setUserName] = useLocalStorage<string>('username', '');
+  // const [userName, setUserName] = useLocalStorage<string>('username', '');
   const [currentPlayer, toggleCurrentPlayer] = useToggle<'X' | 'O'>('X', 'O');
 
   const [squares, setSquares] = useState<SquareType[]>(generateSquares());
