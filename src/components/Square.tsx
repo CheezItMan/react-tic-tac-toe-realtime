@@ -7,7 +7,7 @@ interface SquareProps {
   onClickCallback: (id: number) => void;
 }
 
-const Square = ({ id, value, onClickCallback }: SquareProps) => {
+const Square: React.FC<SquareProps> = ({ id, value, onClickCallback }: SquareProps) => {
   return (
     <button data-testid={`square-${id}`} className="square" onClick={() => onClickCallback(id)}>
       {value ? <div className="square__value">{value}</div> : ''}
