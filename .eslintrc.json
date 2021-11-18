@@ -13,8 +13,7 @@
     "airbnb-typescript",
     "airbnb/hooks",
     "plugin:@typescript-eslint/recommended",
-    "plugin:jest/recommended",
-    "plugin:prettier/recommended"
+    "plugin:jest/recommended"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -27,23 +26,6 @@
   "plugins": ["react", "@typescript-eslint", "jest", "import"],
   "root": true,
   "rules": {
-    "prettier/prettier": [
-      "error",
-      {
-        "singleQuote": true,
-        "trailingComma": "all",
-        "printWidth": 120,
-        "tabWidth": 2,
-        "useTabs": false,
-        "semi": true,
-        "bracketSpacing": true,
-        "jsxBracketSameLine": false,
-        "arrowParens": "avoid",
-        "parser": "typescript",
-        "endOfLine": "auto"
-      }
-    ],
-
     "react/react-in-jsx-scope": "off",
     "max-len": [1, 120, 2, { "ignoreComments": true }],
     "no-console": "off",
