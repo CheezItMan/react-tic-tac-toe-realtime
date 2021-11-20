@@ -15,8 +15,8 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
+  min-height: 20vh;
+  display: block;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -35,4 +35,22 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.tic-tac-toe__nav__menu {
+  width: 100%;
+  list-style: none;
+  display: flex;
+}
+
+.tic-tac-toe__nav__menu__item {
+  padding: 10px;
+}
+
+.tic-tac-toe__nav__menu__item button {
+  padding: 10px;
+}
+
+.home-btn {
+  margin-right: auto;
 }
