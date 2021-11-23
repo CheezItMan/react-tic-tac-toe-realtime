@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
@@ -13,6 +13,7 @@ import Login from './components/Login';
 import FindGame from './components/FindGame';
 
 const App: React.FC = () => {
+  const [gameId, setGameId] = useState<string | null>(null);
   const [userName, setUserName] = useLocalStorage<string>('username', '');
   const [currentPlayer, toggleCurrentPlayer] = useToggle<'X' | 'O'>('X', 'O');
 
@@ -33,7 +34,10 @@ const App: React.FC = () => {
     setSquares(newSquares);
   };
 
-  const notifyDeparture = (oldGameId: string, message: string) => {};
+  const notifyDeparture = (oldGameId: string, message: string) => {
+    console.log(oldGameId);
+    console.log(message);
+  };
 
   const updateGameId = (id: string) => {
     console.log(`gameId: ${id} username: ${userName}`);
@@ -63,6 +67,13 @@ const App: React.FC = () => {
             {userName !== '' ? (
               <li className="tic-tac-toe__nav__menu__item">
                 <Button href="/find-game">Find a game</Button>
+              </li>
+            ) : (
+              ''
+            )}
+            {gameId ? (
+              <li className="tic-tac-toe__nav__menu__item">
+                <Button onClick={() => updateGameId(null)}>Leave Game</Button>
               </li>
             ) : (
               ''
