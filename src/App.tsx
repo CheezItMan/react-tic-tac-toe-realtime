@@ -10,12 +10,14 @@ import Board from './components/Board';
 import { SquareType } from './types';
 import { generateSquares } from './utils/generateSquares';
 import Login from './components/Login';
+import FindGame from './components/FindGame';
 
 const App: React.FC = () => {
   const [userName, setUserName] = useLocalStorage<string>('username', '');
   const [currentPlayer, toggleCurrentPlayer] = useToggle<'X' | 'O'>('X', 'O');
 
   const [squares, setSquares] = useState<SquareType[]>(generateSquares());
+  const [gameId, setGameId] = useState<string | null>(null);
 
   const squareSelected = (id: number) => {
     console.log(`Square ${id} clicked!`);
@@ -34,6 +36,7 @@ const App: React.FC = () => {
   const notifyDeparture = (oldGameId: string, message: string) => {};
 
   const updateGameId = (id: string) => {
+    console.log(`gameId: ${id} username: ${userName}`);
     if (gameId) {
       notifyDeparture(gameId, 'Leaving the Game for another');
     }
@@ -74,6 +77,7 @@ const App: React.FC = () => {
             <Route path="/game" element={<Board squares={squares} onClickCallback={squareSelected} />} />
             <Route path="/" element={<p>main screen</p>} />
             <Route path="/login" element={<Login onLoginCallback={setUserName} />} />
+            <Route path="/find-game" element={<FindGame onFindGameCallback={updateGameId} />} />
           </Routes>
         </BrowserRouter>
       </main>
