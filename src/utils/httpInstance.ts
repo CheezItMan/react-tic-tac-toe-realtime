@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
-const generateHttpInstance = (baseURL: string) => {
+const generateHttpInstance = (baseURL: string): AxiosInstance => {
   return axios.create({
     baseURL: baseURL,
     headers: {
