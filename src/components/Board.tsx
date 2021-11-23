@@ -11,7 +11,14 @@ const Board: React.FC<BoardProps> = ({ squares, onClickCallback }) => {
   return (
     <div className="board">
       {squares.map(({ id, value }) => {
-        return <Square key={id} id={id} value={value} onClickCallback={onClickCallback} />;
+        return (
+          <Square
+            key={id}
+            id={id}
+            value={value}
+            onClickCallback={onClickCallback}
+          />
+        );
       })}
     </div>
   );
