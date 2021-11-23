@@ -18,7 +18,6 @@ const App: React.FC = () => {
   const [currentPlayer, toggleCurrentPlayer] = useToggle<'X' | 'O'>('X', 'O');
 
   const [squares, setSquares] = useState<SquareType[]>(generateSquares());
-  const [gameId, setGameId] = useState<string | null>(null);
 
   const squareSelected = (id: number) => {
     console.log(`Square ${id} clicked!`);
@@ -39,7 +38,7 @@ const App: React.FC = () => {
     console.log(message);
   };
 
-  const updateGameId = (id: string) => {
+  const updateGameId = (id: string | null) => {
     console.log(`gameId: ${id} username: ${userName}`);
     if (gameId) {
       notifyDeparture(gameId, 'Leaving the Game for another');
