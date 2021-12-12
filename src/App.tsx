@@ -82,8 +82,8 @@ const App: React.FC = () => {
       <main>
         <BrowserRouter>
           <Routes>
-            <Route path="/game" element={<Board squares={squares} onClickCallback={squareSelected} />} />
             <Route path="/" element={<p>main screen</p>} />
+            <Route path="/game" element={<Board squares={squares} onClickCallback={squareSelected} />} />
             <Route path="/login" element={<Login onLoginCallback={setUserName} />} />
           </Routes>
         </BrowserRouter>
