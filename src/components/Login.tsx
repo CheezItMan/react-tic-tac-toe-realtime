@@ -6,6 +6,7 @@ import './Login.css';
 
 interface LoginProps {
   onLoginCallback: (username: string) => void;
+  username: string;
 }
 
 const Login: React.FC<LoginProps> = ({ onLoginCallback }: LoginProps) => {
