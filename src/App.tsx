@@ -4,17 +4,22 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { useLocalStorage } from './hooks/useLocalStorage';
+// import { useLocalStorage } from './hooks/useLocalStorage';
 import { useToggle } from './hooks/useToggle';
 import Board from './components/Board';
+import CreateGame from './components/CreateGame';
 import { SquareType } from './types';
 import { generateSquares } from './utils/generateSquares';
 import Login from './components/Login';
+import useLogin from './hooks/useLogin';
 
 const App: React.FC = () => {
+  console.log('username');
+  // console.log(userName);
   const [gameId, setGameId] = useState<string | null>(null);
-  const [userName, setUserName] = useLocalStorage<string>('username', '');
+  // const [userName, setUserName] = useLocalStorage<string>('username', '');
   const [currentPlayer, toggleCurrentPlayer] = useToggle<'X' | 'O'>('X', 'O');
+  const [userName, performLogin, performLogout] = useLogin();
 
   const [squares, setSquares] = useState<SquareType[]>(generateSquares());
 
@@ -48,6 +53,7 @@ const App: React.FC = () => {
     <div className="App">
       <header className="App-header">
         <nav className="tic-tac-toe__nav">
+          {userName ? `Logged in as ${userName}` : 'Not logged in'}
           <ul className="tic-tac-toe__nav__menu">
             <li className="tic-tac-toe__nav__menu__item home-btn">
               <Button href="/">Home</Button>
@@ -58,13 +64,19 @@ const App: React.FC = () => {
               </li>
             ) : (
               <li className="tic-tac-toe__nav__menu__item">
-                <Button onClick={() => setUserName('')}>Log Out</Button>
+                <Button onClick={() => performLogout()}>Log Out</Button>
               </li>
             )}
+
             {userName !== '' ? (
-              <li className="tic-tac-toe__nav__menu__item">
-                <Button href="/find-game">Find a game</Button>
-              </li>
+              <>
+                <li className="tic-tac-toe__nav__menu__item">
+                  <Button href="/find-game">Find a game</Button>
+                </li>
+                <li className="tic-tac-toe__nav__menu__item">
+                  <Button href="/create-game">Create Game</Button>
+                </li>
+              </>
             ) : (
               ''
             )}
@@ -84,7 +96,8 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<p>main screen</p>} />
             <Route path="/game" element={<Board squares={squares} onClickCallback={squareSelected} />} />
-            <Route path="/login" element={<Login onLoginCallback={setUserName} />} />
+            <Route path="/login" element={<Login username={userName} onLoginCallback={performLogin} />} />
+            <Route path="/create-game" element={<CreateGame />} />
           </Routes>
         </BrowserRouter>
       </main>
