@@ -1,31 +1,25 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { API_URL } from '../utils/constants';
+import { TicTackToeSocketType } from '../utils/SocketService';
 
-export default function useLogin(): [
-  string,
-  (username: string) => void,
-  () => void,
-] {
+export default function useLogin(
+  socket: TicTackToeSocketType,
+): [string, (username: string) => void, () => void] {
   const [username, setUsername] = useState<string>('');
 
   const performLogin = async (newUsername: string): Promise<void> => {
-    try {
-      console.log(API_URL);
-      const response = await axios.post(`${API_URL}/player/v1`, {
-        name: newUsername,
-      });
-      if (response.status === 200 || response.status === 201) {
-        // on success set state
-        setUsername(newUsername);
-      }
-    } catch (error) {
-      setUsername('');
-    }
+    socket.emit('login', newUsername);
+
+    socket.on('loggedIn', (loggedInUserName: string, id: string) => {
+      setUsername(loggedInUserName);
+      console.log(`User id: ${id} is logged in`);
+    });
   };
 
   const performLogout = () => {
     setUsername('');
+    socket.emit('logout');
   };
 
   return [username, performLogin, performLogout];
