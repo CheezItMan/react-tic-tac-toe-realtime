@@ -1,0 +1,16 @@
+.game-list {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  column-gap: 10px;
+}
+
+.game-list__game-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-list__game__join-button {
+  min-width: 200px;
+  min-height: 50px;
+}
