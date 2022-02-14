@@ -109,7 +109,11 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<p>main screen</p>} />
             <Route path="/login" element={<Login onLoginCallback={setUserName} connected={connected} />} />
-            <Route path="/find-game" element={<FindGame onFindGameCallback={updateGameId} />} />
+            <Route path="/list-games" element={<GameList games={games} />} />
+            <Route
+              path="/create-game"
+              element={<CreateGame socket={socket} userName={userName} onCreateGameCallback={onCreateGame} />}
+            />
           </Routes>
         </main>
         <footer></footer>
