@@ -10,10 +10,16 @@ import { useToggle } from './hooks/useToggle';
 import { SquareType } from './types';
 import { generateSquares } from './utils/generateSquares';
 import Login from './components/Login';
+import CreateGame from './components/CreateGame';
 import useLogin from './hooks/useLogin';
 import { createSocket, TicTackToeSocketType } from './utils/SocketService';
 
-import FindGame from './components/FindGame';
+import GameList from './components/GameList';
+import games from './games';
+
+const onCreateGame = (gameId: string) => {
+  console.log(`Create Game ${gameId}`);
+};
 
 const App: React.FC = () => {
   const [gameId, setGameId] = useState<string | null>(null);
