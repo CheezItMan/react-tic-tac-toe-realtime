@@ -1,30 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import { BrowserRouter, Route, Routes, useNavigate, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 // import { useLocalStorage } from './hooks/useLocalStorage';
 import { useToggle } from './hooks/useToggle';
-import Board from './components/Board';
-import GameList from './components/GameList';
-import CreateGame from './components/CreateGame';
 import { SquareType } from './types';
 import { generateSquares } from './utils/generateSquares';
 import Login from './components/Login';
 import useLogin from './hooks/useLogin';
 import { createSocket, TicTackToeSocketType } from './utils/SocketService';
-import { GameInfo } from './types';
-import Game from './components/Game';
 
-import games from './games.json';
+import FindGame from './components/FindGame';
 
 const App: React.FC = () => {
   const [gameId, setGameId] = useState<string | null>(null);
   const [currentPlayer, toggleCurrentPlayer] = useToggle<'X' | 'O'>('X', 'O');
 
   const [socket] = useState<TicTackToeSocketType>(createSocket('http://localhost:3001'));
-  const [userName, performLogin, performLogout] = useLogin(socket);
+  const [userName, , performLogout] = useLogin(socket);
   const [connected, setConnected] = useState<boolean>(false);
 
   const [squares, setSquares] = useState<SquareType[]>(generateSquares());
@@ -35,6 +30,7 @@ const App: React.FC = () => {
     });
   }, [socket]);
 
+  // TODO:  Move this to Game component
   const squareSelected = (id: number) => {
     console.log(`Square ${id} clicked!`);
 
@@ -55,6 +51,7 @@ const App: React.FC = () => {
   };
 
   const updateGameId = (id: string | null) => {
+    console.log(`gameId: ${id} username: ${userName}`);
     if (gameId) {
       notifyDeparture(gameId, 'Leaving the Game for another');
     }
@@ -117,14 +114,8 @@ const App: React.FC = () => {
         <main>
           <Routes>
             <Route path="/" element={<p>main screen</p>} />
-            <Route path="/game" element={<Board squares={squares} onClickCallback={squareSelected} />} />
-            <Route
-              path="/login"
-              element={<Login username={userName} onLoginCallback={performLogin} connected={connected} />}
-            />
-            <Route path="/create-game" element={<CreateGame />} />
-            <Route path="/list-games" element={<GameList games={games as GameInfo[]} />} />
-            <Route path="/game/:gameId" element={<Game socket={socket} />} />
+            <Route path="/login" element={<Login onLoginCallback={setUserName} />} />
+            <Route path="/find-game" element={<FindGame onFindGameCallback={updateGameId} />} />
           </Routes>
         </main>
         <footer></footer>
