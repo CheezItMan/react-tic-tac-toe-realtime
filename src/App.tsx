@@ -19,7 +19,7 @@ const App: React.FC = () => {
   const [currentPlayer, toggleCurrentPlayer] = useToggle<'X' | 'O'>('X', 'O');
 
   const [socket] = useState<TicTackToeSocketType>(createSocket('http://localhost:3001'));
-  const [userName, , performLogout] = useLogin(socket);
+  const [userName, setUserName, performLogout] = useLogin(socket);
   const [connected, setConnected] = useState<boolean>(false);
 
   const [squares, setSquares] = useState<SquareType[]>(generateSquares());
@@ -114,7 +114,7 @@ const App: React.FC = () => {
         <main>
           <Routes>
             <Route path="/" element={<p>main screen</p>} />
-            <Route path="/login" element={<Login onLoginCallback={setUserName} />} />
+            <Route path="/login" element={<Login onLoginCallback={setUserName} connected={connected} />} />
             <Route path="/find-game" element={<FindGame onFindGameCallback={updateGameId} />} />
           </Routes>
         </main>
