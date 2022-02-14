@@ -6,11 +6,14 @@ import './Login.css';
 
 interface LoginProps {
   onLoginCallback: (username: string) => void;
+  connected: boolean;
 }
 
-const Login: React.FC<LoginProps> = ({ onLoginCallback }: LoginProps) => {
+const Login: React.FC<LoginProps> = ({ onLoginCallback, connected }: LoginProps) => {
   const [loginName, setLoginName] = useState('');
   const navigate = useNavigate();
+  if (!connected) navigate('/');
+
   const onSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
