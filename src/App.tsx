@@ -58,7 +58,9 @@ const App: React.FC = () => {
             {userName ? `Logged in as ${userName}` : 'Not logged in'}
             <ul className="tic-tac-toe__nav__menu">
               <li className="tic-tac-toe__nav__menu__item home-btn">
-                <Button href="/">Home</Button>
+                <Link to="/">
+                  <Button>Home</Button>
+                </Link>
               </li>
               {userName == '' ? (
                 <li className="tic-tac-toe__nav__menu__item">
