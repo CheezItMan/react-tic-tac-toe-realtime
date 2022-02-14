@@ -9,6 +9,7 @@ interface ServerToClientEvents {
     playerLetter: 'X' | 'O',
   ) => void;
   gameStatus: (board: Buffer) => void;
+  gameCreated: (gameId: string) => void;
 }
 
 interface ClientToServerEvents {
@@ -16,6 +17,7 @@ interface ClientToServerEvents {
   logout: () => void;
   joinGame: (gameId: string) => void;
   makeMove: (gameId: string, move: number) => void;
+  createGame: (userName: string) => void;
 }
 
 // prettier-ignore
@@ -23,7 +25,7 @@ export type TicTackToeSocketType = Socket<ServerToClientEvents, ClientToServerEv
 
 export const createSocket: (
   url: string,
-) => Socket<ServerToClientEvents, ClientToServerEvents> = (url: string) => {
+) => Socket<ClientToServerEvents, ServerToClientEvents> = (url: string) => {
   const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(url);
   return socket;
 };
