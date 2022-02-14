@@ -6,7 +6,6 @@ import './Login.css';
 
 interface LoginProps {
   onLoginCallback: (username: string) => void;
-  username: string;
   connected: boolean;
 }
 
