@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+// TODO:  Use LoginStorage to store username and last game id?
 // import { useLocalStorage } from './hooks/useLocalStorage';
 import { useToggle } from './hooks/useToggle';
 import { SquareType } from './types';
@@ -29,21 +30,6 @@ const App: React.FC = () => {
       setConnected(true);
     });
   }, [socket]);
-
-  // TODO:  Move this to Game component
-  const squareSelected = (id: number) => {
-    console.log(`Square ${id} clicked!`);
-
-    const newSquares = squares.map((square) => {
-      if (square.id === id && !square.value) {
-        const newValue = currentPlayer;
-        toggleCurrentPlayer();
-        return { ...square, value: newValue };
-      }
-      return square;
-    });
-    setSquares(newSquares);
-  };
 
   const notifyDeparture = (oldGameId: string, message: string) => {
     console.log(oldGameId);
